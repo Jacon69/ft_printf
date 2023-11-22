@@ -12,43 +12,23 @@
 
 #include "printft.h"
 
-int	ft_impdec(va_list args)
+int	ft_putchar(char c)
 {
-	int	nb;
-
-	nb = va_arg(args, int);
-	if (nb < 0)
-	{
-		nb =ft_putchar('-');
-		nb *= -1;
-	}
-	nb += ft_printconvert_base(nb, "0123456789", 10, 0);
-	return (nb);
+	write(1, &c, 1);
+	return (1);
 }
 
-int	ft_num(char *str, va_list args)
+int	ft_putstr(char *s)
 {
-	int	num;
+	int	l;
 
-	num = 0;
-	if (*str == 'i' || *str == 'd')
-		num = ft_impdec(args);
-	else if (*str == 'u')
-		num = 
-		ft_printconvert_base((unsigned long long)va_arg(args, unsigned int),"0123456789", 10, 0);
-	else if (*str == 'x')
-		num = ft_printconvert_base((unsigned long long)va_arg(args, unsigned int), "0123456789abcdef", 16, 0);
-	else if (*str == 'X')
-		num = ft_printconvert_base((unsigned long long)va_arg(args, unsigned int), "0123456789ABCDEF", 16, 0);
-	else if (*str == 'p')
+	l = 0;
+	while (*s)
 	{
-		num += ft_putchar ('0');
-		num += ft_putchar ('x');
-		num = ft_printconvert_base((unsigned long long)va_arg(args, void*),
-				"0123456789abcdef", 16, 0);
+		l += ft_putchar(*s);
+		s++;
 	}
-	num = ft_putnbr(num, 1);
-	return (num);
+	return (l);
 }
 
 int	ft_printconvert_base(unsigned long long n, char *base, int nbase, int lng)
@@ -70,29 +50,29 @@ int	ft_printconvert_base(unsigned long long n, char *base, int nbase, int lng)
 }
 
 
-int static	ft_primpara(char *str, va_list args)
+int	ft_primpara(char *str, va_list args)
 {
 	int		lng;
-	char	lettr;
-	char	*word;
 
 	lng = 0;
 	if (*str == 'c')
-	{
-		lettr = va_arg(args, int);
-		lng += ft_putchar (lettr);
-	}
+		return(ft_pr_c(args));
 	else if (*str == 's')
-	{
-		word = va_arg(args, char *);
-		lng += ft_putstr (word);
-	}
-	else if (*str == 'i' || *str == 'd' || *str == 'u')
-		lng += ft_num(str, args);
-	else if (*str == 'p' || *str == 'x' || *str == 'X')
-		lng += ft_num(str, args);
+		return(ft_pr_s(args));
+	else if (*str == 'i')
+		return(ft_pr_i(args));
+	else if (*str == 'd')
+		return(ft_pr_d(args));
+	else if (*str == 'u')
+		return(ft_pr_u(args));
+	else if (*str == 'p')
+		return(ft_pr_p(args));
+	else if (*str == 'x')
+		return(ft_pr_x(args));
+	else if (*str == 'X')
+		return(ft_pr_X(args));
 	else if (*str == '%')
-		lng += ft_putchar ('%');
+		return(ft_putchar ('%'));
 	return (lng);
 }
 
@@ -120,3 +100,22 @@ int	ft_printf(const char *stc, ...)
 	va_end(args);
 	return (lng);
 }
+/*
+#include "printft.h"
+
+int main (void)
+{
+   // char cadena[] =  "a";
+    int nimpresion;
+   // int nume;
+
+	//nume = 8756;
+    nimpresion = ft_printf("%c", 1);
+    printf ("\nSe han imprespo %i caracteres\n",nimpresion);
+    nimpresion = printf("%c", 1);
+    printf ("\nSe han imprespo %i caracteres\n",nimpresion);
+	return(0);
+}
+
+//gcc -Wall -Werror -Wextra main.c libftprintf.a -o prin
+*/

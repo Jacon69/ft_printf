@@ -25,4 +25,27 @@ int	ft_putchar(char c);
 int	ft_putnbr(int nb, int len);
 int	ft_putstr(char *s);
 int	ft_printconvert_base(unsigned long long n, char *base, int nbase, int lng);
+int ft_pr_c(va_list args);
+int ft_pr_s(va_list args);
+int ft_pr_i(va_list args);
+int ft_pr_d(va_list args);
+int ft_pr_u(va_list args);
+int ft_pr_p(va_list args);
+int ft_pr_x(va_list args);
+int ft_pr_X(va_list args);
+#endif
+#ifndef  HIGHHEX
+# define HIGHHEX "0123456789ABCDEF"
+#endif
+#ifndef  LOWHEX
+# define LOWHEX "0123456789abcdef"
+#endif
+#ifndef  DECIMAL
+# define DECIMAL "0123456789"
+#endif
+#ifndef  ULL
+# define ULL unsigned long long int
+#endif
+#ifndef  UI
+# define UI unsigned int
 #endif

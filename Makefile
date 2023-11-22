@@ -7,7 +7,7 @@ NAME = libftprintf.a
 CC = gcc
 CFLAG = -Werror -Wall -Wextra
 
-SOURCE = ft_printtype.c ft_printf.c
+SOURCE = ft_printf.c ft_pr_arg1.c ft_pr_arg2.c
 
 # Objetos
 OBJ = $(SOURCE:.c=.o)
