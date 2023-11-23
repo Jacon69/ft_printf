@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jconde-a <jconde-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 11:43:56 by jconde-a          #+#    #+#             */
-/*   Updated: 2023/11/16 18:26:19 by jconde-a         ###   ########.fr       */
+/*   Created: 2023/11/22 09:10:25 by jconde-a          #+#    #+#             */
+/*   Updated: 2023/11/22 12:45:05 by jconde-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printft.h"
+#include "ft_printf.h"
 
 int	ft_putchar(char c)
 {
@@ -31,24 +31,23 @@ int	ft_putstr(char *s)
 	return (l);
 }
 
-int	ft_printconvert_base(unsigned long long n, char *base, int nbase, int lng)
+int	ft_printconvert_base(unsigned int n, char *base, int nbase, int lng)
 {
 	if (n / nbase == 0)
 	{
 		n = n % nbase;
 		lng++;
-		ft_putchar( base[n]);
+		ft_putchar(base[n]);
 	}
 	else
 	{
 		lng += ft_printconvert_base(n / nbase, base, nbase, lng);
 		n = n % nbase;
 		lng++;
-		ft_putchar( base[n]);
+		ft_putchar(base[n]);
 	}
 	return (lng);
 }
-
 
 int	ft_primpara(char *str, va_list args)
 {
@@ -56,23 +55,21 @@ int	ft_primpara(char *str, va_list args)
 
 	lng = 0;
 	if (*str == 'c')
-		return(ft_pr_c(args));
+		return (ft_pr_c(args));
 	else if (*str == 's')
-		return(ft_pr_s(args));
-	else if (*str == 'i')
-		return(ft_pr_i(args));
-	else if (*str == 'd')
-		return(ft_pr_d(args));
+		return (ft_pr_s(args));
+	else if ((*str == 'i') || (*str == 'd'))
+		return (ft_pr_id(args));
 	else if (*str == 'u')
-		return(ft_pr_u(args));
+		return (ft_pr_u(args));
 	else if (*str == 'p')
-		return(ft_pr_p(args));
+		return (ft_pr_p(args));
 	else if (*str == 'x')
-		return(ft_pr_x(args));
+		return (ft_pr_x(args));
 	else if (*str == 'X')
-		return(ft_pr_X(args));
+		return (ft_pr_ux(args));
 	else if (*str == '%')
-		return(ft_putchar ('%'));
+		return (ft_putchar ('%'));
 	return (lng);
 }
 
@@ -83,7 +80,6 @@ int	ft_printf(const char *stc, ...)
 	char	*ptr;
 
 	va_start(args, stc);
-
 	lng = 0;
 	while (*stc)
 	{
